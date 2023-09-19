@@ -104,6 +104,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Allow all origins.
 CORS_ALLOW_ALL_ORIGINS = True
 
 # Internationalization

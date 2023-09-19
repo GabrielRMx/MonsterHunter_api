@@ -13,6 +13,7 @@ class MonsterView(View):
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
+    # GET REQUEST
     def get(self, request, id=0):
         if id > 0:
             monsters = list(Monster.objects.filter(id=id).values())
@@ -30,6 +31,7 @@ class MonsterView(View):
                 data = {'message': 'Monster not found ...'}
             return JsonResponse(data)
 
+    # POST REQUEST
     def post(self, request):
         # print(request.body)
         j_data = json.loads(request.body)
@@ -39,6 +41,7 @@ class MonsterView(View):
         data = {'message': 'Success'}
         return JsonResponse(data)
 
+    # PUT REQUEST
     def put(self, request, id):
         j_data = json.loads(request.body)
         monsters = list(Monster.objects.filter(id=id).values())
@@ -56,6 +59,7 @@ class MonsterView(View):
 
         return JsonResponse(data)
 
+    # DELETE REQUEST
     def delete(self, request, id):
         monsters = list(Monster.objects.filter(id=id).values())
         if len(monsters) > 0:
