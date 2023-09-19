@@ -27,7 +27,7 @@ class MonsterView(View):
             if len(monsters) > 0:
                 data = {'message': 'Success', 'monsters': monsters}
             else:
-                data = {'message': 'There are not monsters here...'}
+                data = {'message': 'Monster not found ...'}
             return JsonResponse(data)
 
     def post(self, request):
@@ -39,8 +39,28 @@ class MonsterView(View):
         data = {'message': 'Success'}
         return JsonResponse(data)
 
-    def put(self, request):
-        pass
+    def put(self, request, id):
+        j_data = json.loads(request.body)
+        monsters = list(Monster.objects.filter(id=id).values())
+        if len(monsters) > 0:
+            monster = Monster.objects.get(id=id)
+            monster.name = j_data['name']
+            monster.type = j_data['type']
+            monster.attribute = j_data['attribute']
+            monster.weakness = j_data['weakness']
+            monster.rank = j_data['rank']
+            monster.save()
+            data = {'message': 'Monster successfully updated!'}
+        else:
+            data = {'message': 'Monster not found ...'}
 
-    def delete(self, request):
-        pass
+        return JsonResponse(data)
+
+    def delete(self, request, id):
+        monsters = list(Monster.objects.filter(id=id).values())
+        if len(monsters) > 0:
+            Monster.objects.filter(id=id).delete()
+            data = {'message': 'Monster successfully erased ...'}
+        else:
+            data = {'message': 'Monster not found ...'}
+        return JsonResponse(data)
