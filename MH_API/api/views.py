@@ -22,7 +22,7 @@ class MonsterView(View):
             # Se almacena la lista con el elemento que corresponde al id, a traves del metodo filter.
             monsters_list = list(Monster.objects.filter(id=id).values())
 
-            # Se almacena el diccionario con el mensaje y los datos del monstro.
+            # Se almacena el diccionario con el mensaje y los datos del monstruo.
             if len(monsters_list) > 0:
                 data = {'message': 'Success', 'monsters': monsters_list}
 
